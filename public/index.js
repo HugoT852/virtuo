@@ -158,6 +158,7 @@ const actors = [{
 }];
 
 
+
 function Euro_Kilometers()
 {
   rentals.forEach((item, index) => {
@@ -176,6 +177,8 @@ function Euro_Kilometers()
 
     var time = (days_Diff * cars[index_car]['pricePerDay'])
     var distance = (rentals[index]['distance'] * cars[index_car]['pricePerKm'])
+
+    //part 2 discount
     var discount = 1
     if (days_Diff >1){ discount = 0.9}
     if (days_Diff >4){ discount = 0.7}
@@ -184,34 +187,40 @@ function Euro_Kilometers()
 
     var rental_price =( time + distance) * discount
     rentals[index]['price']=rental_price
+
+    //part 3 commission & stuff
+    var thecommission = rental_price * 0.3
+    var theinsurance = Math.round(thecommission / 2 * 100) / 100
+    rentals[index]['commission']['insurance'] = theinsurance
+    rentals[index]['commission']['treasury'] = days_Diff
+    rentals[index]['commission']['virtuo'] = theinsurance - days_Diff
   })
 
 }
 
 Euro_Kilometers()
-console.log(cars[0])
+
 console.log(cars);
 console.log(rentals);
 console.log(actors);
 console.log(rentals[0]);
-
 /*
-
-
+'id': '893a04a3-e447-41fe-beec-9a6bfff6fdb4',
+  'driver': {
+    'firstName': 'Roman',
+    'lastName': 'Frayssinet'
+  },
+  'carId': 'a9c1b91b-5e3d-4cec-a3cb-ef7eebb4892e',
+  'pickupDate': '2020-01-02',
+  'returnDate': '2020-01-02',
+  'distance': 100,
+  'options': {
+    'deductibleReduction': false
+  },
+  'price': 0,
+  'commission': {
+    'insurance': 0,
+    'treasury': 0,
+    'virtuo': 0
+  }
 */
-/*
-var test = rentals[0]['returnDate'] - rentals[0]['pickupDate']
-console.log(rentals[0]['pickupDate'])
-console.log(rentals[0]['returnDate'])
-console.log(typeof rentals[0]['pickupDate'])
-
-var date1 = new Date(rentals[0]['returnDate']);
-var date2 = new Date(rentals[0]['pickupDate']);
-
-var time_diff = date2.getTime() - date1.getTime() +(1000 * 3600 * 24);
-
-var days_Diff = time_diff / (1000 * 3600 * 24);
-
-console.log(days_Diff)
-*/
-
