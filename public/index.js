@@ -73,6 +73,7 @@ const rentals = [{
   'carId': '4afcc3a2-bbf4-44e8-b739-0179a6cd8b7d',
   'pickupDate': '2019-12-01',
   'returnDate': '2019-12-15',
+  'distance': 1000,
   'options': {
     'deductibleReduction': true
   },
@@ -165,11 +166,11 @@ function Euro_Kilometers()
     
     var date1 = new Date(rentals[index]['returnDate']);
     var date2 = new Date(rentals[index]['pickupDate']);
-    var time_diff = date2.getTime() - date1.getTime() +(1000 * 3600 * 24);
+    var time_diff = date1.getTime() - date2.getTime() +(1000 * 3600 * 24);
     var days_Diff = time_diff / (1000 * 3600 * 24);
 
     var index_car = -1
-    cars.forEach((item, index_1) => {
+    cars.forEach((item_1, index_1) => {
       if (cars[index_1]['id'] == rentals[index]['carId']){ 
         index_car = index_1;
       }
@@ -184,8 +185,12 @@ function Euro_Kilometers()
     if (days_Diff >4){ discount = 0.7}
     if (days_Diff >10){ discount = 0.5}
     
+    // part 4 deductible
+    var thedeductible = 0
+    if (rentals[index]['options']['deductibleReduction'] == true){thedeductible = 4}
 
-    var rental_price =( time + distance) * discount
+    //rental price 
+    var rental_price =( time + distance) * discount + thedeductible
     rentals[index]['price']=rental_price
 
     //part 3 commission & stuff
@@ -194,6 +199,7 @@ function Euro_Kilometers()
     rentals[index]['commission']['insurance'] = theinsurance
     rentals[index]['commission']['treasury'] = days_Diff
     rentals[index]['commission']['virtuo'] = theinsurance - days_Diff
+    
   })
 
 }
@@ -204,23 +210,4 @@ console.log(cars);
 console.log(rentals);
 console.log(actors);
 console.log(rentals[0]);
-/*
-'id': '893a04a3-e447-41fe-beec-9a6bfff6fdb4',
-  'driver': {
-    'firstName': 'Roman',
-    'lastName': 'Frayssinet'
-  },
-  'carId': 'a9c1b91b-5e3d-4cec-a3cb-ef7eebb4892e',
-  'pickupDate': '2020-01-02',
-  'returnDate': '2020-01-02',
-  'distance': 100,
-  'options': {
-    'deductibleReduction': false
-  },
-  'price': 0,
-  'commission': {
-    'insurance': 0,
-    'treasury': 0,
-    'virtuo': 0
-  }
-*/
+
