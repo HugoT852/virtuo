@@ -190,8 +190,8 @@ function Euro_Kilometers()
     if (rentals[index]['options']['deductibleReduction'] == true){thedeductible = 4}
 
     //rental price 
-    var rental_price =( time + distance) * discount + thedeductible
-    rentals[index]['price']=rental_price
+    var rental_price =( time + distance) * discount 
+    rentals[index]['price']=rental_price + thedeductible
 
     //part 3 commission & stuff
     var thecommission = rental_price * 0.3
