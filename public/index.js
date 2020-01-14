@@ -199,7 +199,26 @@ function Euro_Kilometers()
     rentals[index]['commission']['insurance'] = theinsurance
     rentals[index]['commission']['treasury'] = days_Diff
     rentals[index]['commission']['virtuo'] = theinsurance - days_Diff
-    
+
+    //part 5 pay day !
+    //find position in actor of the rent
+    var index_actors = -1
+    actors.forEach((item_2, index_2) => {
+      if (actors[index_2]['rentalId'] == rentals[index]['id']){ 
+        index_actors = index_2;
+      }
+    })
+    //driver
+    actors[index_actors]['payment'][0]['amount'] = rental_price + thedeductible
+    //partner 
+    actors[index_actors]['payment'][1]['amount'] = rental_price - thecommission
+    //insurance 
+    actors[index_actors]['payment'][2]['amount'] = theinsurance
+    //Treasury 
+    actors[index_actors]['payment'][3]['amount'] = days_Diff
+    //Virtuo 
+    actors[index_actors]['payment'][4]['amount'] = theinsurance - days_Diff + thedeductible
+
   })
 
 }
@@ -209,5 +228,9 @@ Euro_Kilometers()
 console.log(cars);
 console.log(rentals);
 console.log(actors);
-console.log(rentals[0]);
+
+
+
+
+
 
