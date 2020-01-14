@@ -182,7 +182,7 @@ function Euro_Kilometers()
     if (days_Diff >10){ discount = 0.5}
     
 
-    var rental_price = time + distance
+    var rental_price =( time + distance) * discount
     rentals[index]['price']=rental_price
   })
 
