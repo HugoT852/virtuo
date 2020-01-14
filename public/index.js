@@ -157,6 +157,61 @@ const actors = [{
   }]
 }];
 
+
+function Euro_Kilometers()
+{
+  rentals.forEach((item, index) => {
+    
+    var date1 = new Date(rentals[index]['returnDate']);
+    var date2 = new Date(rentals[index]['pickupDate']);
+    var time_diff = date2.getTime() - date1.getTime() +(1000 * 3600 * 24);
+    var days_Diff = time_diff / (1000 * 3600 * 24);
+
+    var index_car = -1
+    cars.forEach((item, index_1) => {
+      if (cars[index_1]['id'] == rentals[index]['carId']){ 
+        index_car = index_1;
+      }
+    })
+
+    var time = (days_Diff * cars[index_car]['pricePerDay'])
+    var distance = (rentals[index]['distance'] * cars[index_car]['pricePerKm'])
+    var discount = 1
+    if (days_Diff >1){ discount = 0.9}
+    if (days_Diff >4){ discount = 0.7}
+    if (days_Diff >10){ discount = 0.5}
+    
+
+    var rental_price = time + distance
+    rentals[index]['price']=rental_price
+  })
+
+}
+
+Euro_Kilometers()
+console.log(cars[0])
 console.log(cars);
 console.log(rentals);
 console.log(actors);
+console.log(rentals[0]);
+
+/*
+
+
+*/
+/*
+var test = rentals[0]['returnDate'] - rentals[0]['pickupDate']
+console.log(rentals[0]['pickupDate'])
+console.log(rentals[0]['returnDate'])
+console.log(typeof rentals[0]['pickupDate'])
+
+var date1 = new Date(rentals[0]['returnDate']);
+var date2 = new Date(rentals[0]['pickupDate']);
+
+var time_diff = date2.getTime() - date1.getTime() +(1000 * 3600 * 24);
+
+var days_Diff = time_diff / (1000 * 3600 * 24);
+
+console.log(days_Diff)
+*/
+
